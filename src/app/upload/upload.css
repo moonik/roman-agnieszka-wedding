@@ -1,135 +1,248 @@
-/* src/app/upload/upload.component.css */
-.wedding-upload-container {
-  min-height: 100vh;
-  background-color: #faf8f5; /* Soft Cream */
-  font-family: 'Times New Roman', Times, serif; /* Simple serif for elegance */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px;
+/* --- Konfiguracja stylów lokalnych komponentu --- */
+.wedding-hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    position: relative;
 }
 
-.wedding-header {
-  text-align: center;
-  margin-bottom: 60px;
+.hero-content {
+    z-index: 2;
 }
 
-.wedding-title {
-  font-size: 3.5rem;
-  font-family: 'Georgia', serif; /* Or use a cursive font link */
-  color: #a88a6d; /* Soft Gold/Brown */
+.names-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
 }
 
-.wedding-subtitle {
-  font-size: 1.2rem;
-  color: #666;
-  margin-top: 10px;
+.bride-name, .groom-name {
+    font-family: 'Great Vibes', cursive;
+    font-size: 5.5rem;
+    color: #bfa071; /* Ciepłe złoto */
+    line-height: 1;
 }
 
-.main-content {
-  display: flex;
-  gap: 30px;
-  max-width: 900px;
-  width: 100%;
+.wedding-logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 85px;
+    height: 85px;
 }
 
-.step-box {
-  flex: 1;
-  background-color: white;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  border: 1px solid #eee;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  position: relative;
-  transition: all 0.3s ease;
+.rings-svg {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: #bfa071;
+    stroke-width: 2.5;
 }
 
-.step-box h2 {
-  font-size: 1.4rem;
-  color: #333;
-  letter-spacing: 1px;
-  margin: 15px 0;
+.rings-svg-inner-amp {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    fill: #bfa071;
+    stroke: none;
 }
 
-.step-box p {
-  color: #777;
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 30px;
+.subtitle {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #3a3532;
+    margin-bottom: 50px;
 }
 
-.step-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: #d8b6a3; /* Rose Dust */
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
+/* --- Przyciski akcji w sekcji Hero --- */
+.hero-actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-/* Step Complete Styling */
-.step-complete {
-  border-color: #d8b6a3;
-  box-shadow: 0 4px 20px rgba(216, 182, 163, 0.2);
-}
-.step-complete .step-icon {
-  background-color: #a88a6d; /* Gold */
-}
-
-/* Step Disabled Styling */
-.step-disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-.step-disabled label {
-  cursor: not-allowed;
+.scroll-btn, .wedding-btn {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 13px 32px;
+    border: 1px solid #7d5a50; /* Ślubny brąz */
+    background: transparent;
+    color: #7d5a50;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 4px;
 }
 
-/* Buttons */
-.wedding-btn {
-  border: none;
-  padding: 12px 24px;
-  border-radius: 25px;
-  font-weight: bold;
-  cursor: pointer;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  width: 100%;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  transition: transform 0.1s ease;
+.upload-btn {
+    border-color: #bfa071;
+    color: #bfa071;
+    background-color: rgba(191, 160, 113, 0.05);
 }
 
-.wedding-btn:active {
-  transform: translateY(1px);
+.scroll-btn:hover {
+    background-color: #7d5a50;
+    color: #fff;
+    box-shadow: 0 10px 20px rgba(125, 90, 80, 0.2);
 }
 
-.btn-gold {
-  background-color: #a88a6d;
-  color: white;
+.upload-btn:hover:not(.disabled) {
+    background-color: #bfa071;
+    color: #fff;
+    box-shadow: 0 10px 20px rgba(191, 160, 113, 0.2);
 }
 
-.btn-rose {
-  background-color: #d8b6a3;
-  color: white;
-  display: inline-block; /* Essential for label/input */
-  text-align: center;
+.wedding-btn.disabled, [disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
-/* Hidden File Input */
-.file-input-wrapper input[type="file"] {
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
+.upload-container {
+    position: relative;
+}
+
+.upload-progress-text {
+    position: absolute;
+    top: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    font-size: 0.85rem;
+    color: #7d5a50;
+    font-style: italic;
+}
+
+/* --- Sekcja Planu Uroczystości --- */
+.plan-section {
+    padding: 100px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.plan-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 400;
+    text-align: center;
+    color: #7d5a50;
+}
+
+.title-heart {
+    text-align: center;
+    color: #e4b7a0;
+    font-size: 1.2rem;
+    margin-bottom: 60px;
+}
+
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 30px;
+    width: 2px;
+    height: 100%;
+    background-color: #e4b7a0;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 50px;
+    padding-left: 70px;
+}
+
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    left: 23px;
+    top: 24px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 2px solid #7d5a50;
+    z-index: 2;
+}
+
+.timeline-content {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 6px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.02);
+    border: 1px solid rgba(228, 183, 160, 0.15);
+    text-align: left;
+}
+
+.time {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    color: #7d5a50;
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.timeline-content h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+    color: #7d5a50;
+}
+
+.timeline-content p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.7;
+}
+
+/* --- Stopka i Płatki --- */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    color: #888;
+    background-color: #fff;
+    border-top: 1px solid rgba(228, 183, 160, 0.2);
+}
+
+::ng-deep .petal {
+    position: absolute;
+    background-color: rgba(228, 183, 160, 0.6);
+    border-radius: 150px 0 150px 150px;
+    animation: fade 10s infinite linear, float 5s infinite ease-in-out;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* --- Responsywność --- */
+@media (max-width: 768px) {
+    .wedding-hero { height: auto; padding: 100px 20px; }
+    .bride-name, .groom-name { font-size: 3.8rem; }
+    .wedding-logo-wrapper { width: 65px; height: 65px; }
+    .rings-svg-inner-amp { font-size: 1.8rem; }
+    .hero-actions { flex-direction: column; width: 100%; padding: 0 10px; }
+    .scroll-btn, .wedding-btn, .upload-container { width: 100%; text-align: center; }
+    
+    .plan-title { font-size: 2.8rem; }
+    .timeline::before { left: 20px; }
+    .timeline-item { padding-left: 55px; }
+    .timeline-item::after { left: 13px; }
 }

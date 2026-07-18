@@ -1,39 +1,112 @@
-<div class="wedding-upload-container">
-  <div class="wedding-header">
-    <span class="wedding-title">Roman & Agnieszka Wedding</span>
-    <p class="wedding-subtitle">Help us capture the magic! Share your moments below.</p>
-  </div>
+<!-- Kontener na spadające płatki (generowany przez TS) -->
+<div id="particles-container"></div>
 
-  <div class="main-content">
+<!-- --- PEŁNOEKRANOWA SEKCJA POWITALNA (HERO) --- -->
+<header class="wedding-hero">
+  <div class="hero-content">
     
-    <div class="step-box" [class.step-complete]="driveService.accessToken()">
-      <div class="step-icon">1</div>
-      <h2>SECURE ACCESS</h2>
-      <p>Log in with Google to authorize the upload to our shared folder.</p>
-      
-      <button (click)="onLogin()" class="wedding-btn btn-gold">
-        <span *ngIf="!driveService.accessToken()">LOGIN WITH GOOGLE</span>
-        <span *ngIf="driveService.accessToken()">✓ LOGGED IN</span>
-      </button>
+    <!-- Imiona i Obrączki -->
+    <div class="names-wrapper">
+      <span class="bride-name">Agnieszka</span>
+      <div class="wedding-logo-wrapper">
+        <svg class="rings-svg" viewBox="0 0 100 100">
+          <circle cx="35" cy="50" r="25"/>
+          <circle cx="65" cy="50" r="25"/>
+          <text x="50" y="62" text-anchor="middle" class="rings-svg-inner-amp">&</text>
+        </svg>
+      </div>
+      <span class="groom-name">Roman</span>
     </div>
 
-    <div class="step-box" [class.step-disabled]="!driveService.accessToken()">
-      <div class="step-icon">2</div>
-      <h2>SELECT & UPLOAD</h2>
-      <p>Choose photos from your device to add to our collection.</p>
-      
-      <div class="file-input-wrapper">
-        <label for="weddingFile" class="wedding-btn btn-rose">
-          {{ driveService.accessToken() ? 'CLICK TO CHOOSE FILES' : 'LOGIN FIRST' }}
-        </label>
-        <input 
-          type="file" 
-          id="weddingFile" 
-          (change)="onFileSelected($event)" 
-          accept="image/*" 
-          [disabled]="!driveService.accessToken()">
+    <p class="subtitle">Cieszymy się, że będziecie z nami</p>
+
+    <!-- Akcje: Plan dnia i Twój autorski system Uploadu -->
+    <div class="hero-actions">
+      <a href="#plan-dnia" class="scroll-btn">Zobacz Plan Dnia</a>
+
+      <div class="upload-container">
+        <!-- KROK 1: Logowanie z Google -->
+        <button 
+          *ngIf="!driveService.accessToken()" 
+          (click)="onLogin()" 
+          class="wedding-btn upload-btn" 
+          [disabled]="isUploading">
+          Podziel się zdjęciami ♥
+        </button>
+
+        <!-- KROK 2: Wybór zdjęć po autoryzacji -->
+        <ng-container *ngIf="driveService.accessToken()">
+          <label 
+            for="weddingFile" 
+            class="wedding-btn upload-btn" 
+            [class.disabled]="isUploading">
+            {{ isUploading ? 'Wysyłanie...' : 'Wybierz i dodaj zdjęcia' }}
+          </label>
+          
+          <input 
+            type="file" 
+            id="weddingFile" 
+            multiple
+            (change)="onFilesSelected($event)" 
+            accept="image/*" 
+            [disabled]="isUploading"
+            style="display: none;">
+        </ng-container>
+
+        <!-- Tekst postępu wysyłania plików -->
+        <div *ngIf="isUploading" class="upload-progress-text">
+          {{ uploadProgressText }}
+        </div>
       </div>
     </div>
 
   </div>
-</div>
+</header>
+
+<!-- --- SEKCJA PLANU UROCZYSTOŚCI --- -->
+<section class="plan-section" id="plan-dnia">
+  <h2 class="plan-title">Plan uroczystości</h2>
+  <div class="title-heart">♥</div>
+  
+  <div class="timeline">
+      <!-- 15:00 -->
+      <div class="timeline-item reveal">
+          <div class="timeline-content">
+              <span class="time">15:00</span>
+              <h3>Ślub w kościele</h3>
+              <p>Uroczysta msza święta odbędzie się w kościele pw. <strong>Niepokalanego Poczęcia NMP</strong>. Będzie nam niezwykle miło widzieć Was w tym najważniejszym momencie.</p>
+          </div>
+      </div>
+
+      <!-- 16:00 -->
+      <div class="timeline-item reveal">
+          <div class="timeline-content">
+              <span class="time">16:00</span>
+              <h3>Wesele</h3>
+              <p>Po ceremonii zapraszamy na wspólne świętowanie i huczną zabawę do <strong>Dworku nad Wieprzem</strong>. Przygotujcie się na wspaniałą atmosferę i tańce!</p>
+          </div>
+      </div>
+
+      <!-- 24:00 -->
+      <div class="timeline-item reveal">
+          <div class="timeline-content">
+              <span class="time">24:00</span>
+              <h3>Oczepiny i tort weselny</h3>
+              <p>Tradycyjne oczepiny pełne niespodzianek, po których wspólnie pokroimy pyszny tort weselny.</p>
+          </div>
+      </div>
+
+      <!-- 03:00 -->
+      <div class="timeline-item reveal">
+          <div class="timeline-content">
+              <span class="time">03:00</span>
+              <h3>Koniec wesela</h3>
+              <p>Oficjalne zakończenie zabawy. Dziękujemy, że stworzyliście z nami te piękne wspomnienia!</p>
+          </div>
+      </div>
+  </div>
+</section>
+
+<footer>
+  <p>Do zobaczenia! &copy; 2026 | Strona Stworzona z Miłości</p>
+</footer>

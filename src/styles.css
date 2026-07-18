@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+/* Import czcionek na poziomie globalnym */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap');
+
+/* Przywrócenie genialnego tła na całe okno */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fbf8f5;
+    background-image: linear-gradient(rgba(251, 248, 245, 0.85), rgba(251, 248, 245, 0.4)), 
+                      url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1920&auto=format&fit=crop');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Montserrat', sans-serif;
+    color: #3a3532;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
