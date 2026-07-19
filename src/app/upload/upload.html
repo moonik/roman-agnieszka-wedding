@@ -23,8 +23,19 @@
   <span class="confetti-piece"></span>
 </div>
 
-<!-- --- PEŁNOEKRANOWA SEKCJA POWITALNA (HERO) --- -->
-<header class="wedding-hero">
+<div class="envelope-overlay" *ngIf="!isEnvelopeOpened">
+  <div class="envelope-box" [class.opening]="isEnvelopeOpening">
+    <div class="envelope-flap"></div>
+    <div class="envelope-body">
+      <button class="seal-button" (click)="openEnvelope()" aria-label="Otwórz kopertę">A&R</button>
+      <div class="envelope-instruction">Kliknij pieczątkę, aby otworzyć kopertę</div>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrapper" *ngIf="isEnvelopeOpened">
+  <!-- --- PEŁNOEKRANOWA SEKCJA POWITALNA (HERO) --- -->
+  <header class="wedding-hero">
   <div class="hero-parallax-layer layer-1"></div>
   <div class="hero-parallax-layer layer-2"></div>
   <div class="hero-parallax-layer layer-3"></div>

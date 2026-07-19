@@ -18,6 +18,8 @@ export class UploadComponent implements OnInit, OnDestroy {
   uploadProgressText = '';
   isUploading = false;
   showConfetti = false;
+  isEnvelopeOpened = false;
+  isEnvelopeOpening = false;
 
   // 2. Wstrzyknij public cdr: ChangeDetectorRef w konstruktorze
   constructor(public driveService: DriveService, public cdr: ChangeDetectorRef) {}
@@ -26,6 +28,19 @@ export class UploadComponent implements OnInit, OnDestroy {
     this.driveService.initTokenClient();
     this.startCountdown();
     this.startPetals();
+  }
+
+  openEnvelope(): void {
+    if (this.isEnvelopeOpening || this.isEnvelopeOpened) {
+      return;
+    }
+
+    this.isEnvelopeOpening = true;
+    this.cdr.detectChanges();
+
+    window.setTimeout(() => {
+      this.isEnvelopeOpened = true;
+    }, 700);
   }
 
   ngOnDestroy() {
@@ -99,9 +114,16 @@ export class UploadComponent implements OnInit, OnDestroy {
     petal.style.transform = `rotate(${rotation}deg)`;
     petal.style.animationDuration = `${duration}s`;
     petal.style.animationDelay = `${delay}s`;
-    petal.style.background = Math.random() > 0.5
-      ? 'radial-gradient(circle at 30% 30%, rgba(255, 192, 203, 0.95), rgba(216, 112, 147, 0.85))'
-      : 'radial-gradient(circle at 35% 35%, rgba(255, 228, 225, 0.95), rgba(210, 105, 130, 0.8))';
+
+    const textureOpacity = 0.05 + Math.random() * 0.12;
+    const textureSpacing = 3 + Math.random() * 2;
+    const baseColor = Math.random() > 0.5
+      ? 'rgba(255, 250, 245, 0.98), rgba(241, 233, 228, 0.9)'
+      : 'rgba(255, 248, 242, 0.96), rgba(232, 214, 205, 0.86)';
+
+    petal.style.backgroundImage = `radial-gradient(circle at 30% 30%, ${baseColor}), repeating-linear-gradient(135deg, rgba(255,255,255, ${textureOpacity}) 0, rgba(255,255,255, 0) 1px, rgba(255,255,255, 0) ${textureSpacing}px)`;
+    petal.style.backgroundBlendMode = 'overlay';
+    petal.style.backgroundSize = `${size}px ${size}px, ${textureSpacing * 2}px ${textureSpacing * 2}px`;
 
     container.appendChild(petal);
 
