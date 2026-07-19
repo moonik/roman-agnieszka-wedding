@@ -125,18 +125,21 @@
 }
 
 .countdown-hero__label {
-    font-size: 0.75rem;
-    letter-spacing: 1.8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 1.6px;
     text-transform: uppercase;
     color: #dfc4a9;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .countdown-hero__value {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem;
-    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.85rem;
+    font-weight: 600;
     color: #f8e8d7;
+    letter-spacing: 0.04em;
+    line-height: 1.15;
 }
 
 @media (max-width: 680px) {
