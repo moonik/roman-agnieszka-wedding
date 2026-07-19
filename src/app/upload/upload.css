@@ -55,6 +55,68 @@
     border-radius: 50%;
 }
 
+
+/* Blessing message shown when user clicks the seal */
+.seal-blessing {
+    position: absolute;
+    top: 96px;
+    right: 12px;
+    padding: 10px 14px;
+    background: linear-gradient(180deg, #fffdf6, #fff6e6);
+    color: #2b1a12;
+    border-radius: 12px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-align: left;
+    max-width: 220px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+    animation: blessPop 420ms cubic-bezier(.2,.9,.2,1) both;
+    z-index: 30;
+    pointer-events: none;
+}
+
+@keyframes blessPop {
+    0% { opacity: 0; transform: scale(0.88); }
+    60% { opacity: 1; transform: scale(1.06); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.seal-blessing::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(180deg, #fffdf6, #fff6e6);
+    right: 18px;
+    top: -8px;
+    transform: rotate(45deg);
+    box-shadow: -4px 6px 10px rgba(0,0,0,0.05);
+}
+
+@media (max-width: 680px) {
+    .seal-blessing {
+        top: calc(28px + clamp(84px, 16vw, 112px) + 8px);
+        right: 10px;
+        max-width: 160px;
+        font-size: 0.95rem;
+    }
+    .seal-blessing::after {
+        right: 14px;
+        top: -7px;
+        width: 12px;
+        height: 12px;
+    }
+}
+
+@media (max-width: 380px) {
+    .seal-blessing {
+        top: calc(18px + clamp(64px, 18vw, 92px) + 6px);
+        right: 8px;
+        max-width: 140px;
+        font-size: 0.88rem;
+    }
+}
+
 @media (max-width: 680px) {
     .hero-seal {
         width: clamp(84px, 18vw, 112px);
@@ -1098,3 +1160,5 @@ footer {
         padding: 20px;
     }
 }
+
+/* debug button removed */

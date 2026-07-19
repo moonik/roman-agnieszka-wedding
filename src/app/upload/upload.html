@@ -55,9 +55,11 @@
       <span class="groom-name">Roman</span>
     </div>
 
-    <div class="hero-seal" aria-hidden="true">
-      <img src="/Emmi_1.png" alt="Emmi" class="hero-seal-photo" />
+    <div class="hero-seal" (click)="toggleBlessing()" (keydown.enter)="toggleBlessing()" tabindex="0" role="button" [attr.aria-pressed]="showBlessing">
+      <img src="/Emmi_1.png" alt="Emmi" class="hero-seal-photo" loading="eager" decoding="async" importance="high" width="300" height="300" />
     </div>
+
+    <div class="seal-blessing" *ngIf="showBlessing">Daję im swoje błogosławieństwo!</div>
     <p class="subtitle">Cieszymy się, że będziecie z nami</p>
 
     <div class="countdown-hero" *ngIf="countdownText">

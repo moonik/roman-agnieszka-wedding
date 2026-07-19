@@ -13,20 +13,41 @@ export class UploadComponent implements OnInit, OnDestroy {
   private countdownInterval?: number;
   private petalInterval?: number;
   private confettiTimeout?: number;
+  
   private readonly targetDate = new Date('2026-08-22T15:00:00');
 
   uploadProgressText = '';
   isUploading = false;
+  showBlessing = false;
+  private blessingTimeout?: number;
   showConfetti = false;
   isEnvelopeOpened = false;
   isEnvelopeOpening = false;
 
   constructor(public driveService: DriveService, public cdr: ChangeDetectorRef) {}
 
+  toggleBlessing() {
+    // reset any existing timer so clicking again restarts the display duration
+    if (this.blessingTimeout) {
+      window.clearTimeout(this.blessingTimeout);
+      this.blessingTimeout = undefined;
+    }
+
+    this.showBlessing = true;
+    this.cdr.detectChanges();
+
+    this.blessingTimeout = window.setTimeout(() => {
+      this.showBlessing = false;
+      this.blessingTimeout = undefined;
+      this.cdr.detectChanges();
+    }, 5000);
+  }
+
   ngOnInit() {
     this.driveService.initTokenClient();
     this.startCountdown();
     this.startPetals();
+    // normal initialization
   }
 
   openEnvelope(): void {
@@ -52,6 +73,7 @@ export class UploadComponent implements OnInit, OnDestroy {
     if (this.confettiTimeout) {
       window.clearTimeout(this.confettiTimeout);
     }
+    // cleanup done
   }
 
   private startCountdown(): void {
