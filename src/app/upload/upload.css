@@ -1,6 +1,7 @@
 /* --- Konfiguracja stylów lokalnych komponentu --- */
 .wedding-hero {
     height: 100vh;
+    height: 100dvh; /* Dynamiczna wysokość dla iPhone (ignoruje paski Safari) */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,17 +9,19 @@
     text-align: center;
     padding: 20px;
     position: relative;
+    box-sizing: border-box;
 }
 
 .hero-content {
     z-index: 2;
+    width: 100%;
 }
 
 .names-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 25px;
+    gap: 20px;
     margin-bottom: 15px;
     flex-wrap: wrap;
 }
@@ -26,8 +29,8 @@
 .bride-name, .groom-name {
     font-family: 'Great Vibes', cursive;
     font-size: 5.5rem;
-    color: #bfa071; /* Ciepłe złoto */
-    line-height: 1;
+    color: #bfa071;
+    line-height: 1.1;
 }
 
 .wedding-logo-wrapper {
@@ -36,6 +39,7 @@
     justify-content: center;
     width: 85px;
     height: 85px;
+    flex-shrink: 0; /* Zabezpieczenie przed spłaszczeniem loga na Safari */
 }
 
 .rings-svg {
@@ -58,16 +62,20 @@
     text-transform: uppercase;
     letter-spacing: 4px;
     color: #3a3532;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
+    padding: 0 10px;
 }
 
-/* --- Przyciski akcji w sekcji Hero --- */
+/* --- Przyciski akcji --- */
 .hero-actions {
     display: flex;
     gap: 20px;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .scroll-btn, .wedding-btn {
@@ -75,15 +83,17 @@
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    padding: 13px 32px;
-    border: 1px solid #7d5a50; /* Ślubny brąz */
-    background: transparent;
+    padding: 14px 32px;
+    border: 1px solid #7d5a50;
+    background: #fbf8f5; /* Wymuszona baza na wypadek przezroczystości */
     color: #7d5a50;
     cursor: pointer;
     transition: all 0.4s ease;
     text-decoration: none;
     display: inline-block;
     border-radius: 4px;
+    width: auto;
+    -webkit-appearance: none; /* Usuwa natywne style Apple z buttonów */
 }
 
 .upload-btn {
@@ -126,9 +136,10 @@
 
 /* --- Sekcja Planu Uroczystości --- */
 .plan-section {
-    padding: 100px 20px;
+    padding: 80px 20px;
     max-width: 800px;
     margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .plan-title {
@@ -143,19 +154,19 @@
     text-align: center;
     color: #e4b7a0;
     font-size: 1.2rem;
-    margin-bottom: 60px;
+    margin-bottom: 50px;
 }
 
 .timeline {
     position: relative;
-    padding: 20px 0;
+    padding: 10px 0;
 }
 
 .timeline::before {
     content: '';
     position: absolute;
     top: 0;
-    left: 30px;
+    left: 25px; /* Delikatne przesunięcie linii dla lepszego balansu */
     width: 2px;
     height: 100%;
     background-color: #e4b7a0;
@@ -163,14 +174,14 @@
 
 .timeline-item {
     position: relative;
-    margin-bottom: 50px;
-    padding-left: 70px;
+    margin-bottom: 40px;
+    padding-left: 60px;
 }
 
 .timeline-item::after {
     content: '';
     position: absolute;
-    left: 23px;
+    left: 18px;
     top: 24px;
     width: 16px;
     height: 16px;
@@ -182,7 +193,7 @@
 
 .timeline-content {
     background: #ffffff;
-    padding: 30px;
+    padding: 25px;
     border-radius: 6px;
     box-shadow: 0 5px 25px rgba(0,0,0,0.02);
     border: 1px solid rgba(228, 183, 160, 0.15);
@@ -201,7 +212,7 @@
 .timeline-content h3 {
     font-size: 1.2rem;
     font-weight: 500;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     letter-spacing: 1px;
     color: #7d5a50;
 }
@@ -232,17 +243,56 @@ footer {
     pointer-events: none;
 }
 
-/* --- Responsywność --- */
+/* --- Responsywność & Fixes dla iPhone --- */
 @media (max-width: 768px) {
-    .wedding-hero { height: auto; padding: 100px 20px; }
-    .bride-name, .groom-name { font-size: 3.8rem; }
-    .wedding-logo-wrapper { width: 65px; height: 65px; }
-    .rings-svg-inner-amp { font-size: 1.8rem; }
-    .hero-actions { flex-direction: column; width: 100%; padding: 0 10px; }
-    .scroll-btn, .wedding-btn, .upload-container { width: 100%; text-align: center; }
+    .wedding-hero { 
+        padding: 40px 15px; 
+    }
+    .names-wrapper { 
+        flex-direction: column; /* Układ pionowy na telefonie ratuje kompozycję */
+        gap: 10px; 
+    }
+    .bride-name, .groom-name { 
+        font-size: 4rem; 
+    }
+    .wedding-logo-wrapper { 
+        width: 70px; 
+        height: 70px; 
+        margin: 5px 0;
+    }
+    .rings-svg-inner-amp { 
+        font-size: 2rem; 
+    }
+    .subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 35px;
+    }
+    .hero-actions { 
+        flex-direction: column; 
+        gap: 12px; 
+        width: 100%; 
+    }
+    .scroll-btn, .wedding-btn, .upload-container { 
+        width: 100%; 
+        box-sizing: border-box;
+    }
     
-    .plan-title { font-size: 2.8rem; }
-    .timeline::before { left: 20px; }
-    .timeline-item { padding-left: 55px; }
-    .timeline-item::after { left: 13px; }
+    .plan-section {
+        padding: 60px 15px;
+    }
+    .plan-title { 
+        font-size: 2.8rem; 
+    }
+    .timeline::before { 
+        left: 15px; 
+    }
+    .timeline-item { 
+        padding-left: 45px; 
+    }
+    .timeline-item::after { 
+        left: 8px; 
+    }
+    .timeline-content {
+        padding: 20px;
+    }
 }

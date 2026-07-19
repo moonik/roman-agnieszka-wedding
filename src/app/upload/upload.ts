@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DriveService } from '../drive.service';
 import { CommonModule } from '@angular/common';
 
@@ -10,46 +10,20 @@ import { CommonModule } from '@angular/common';
 })
 export class UploadComponent implements OnInit {
   
-  uploadProgressText = '';
+uploadProgressText = '';
   isUploading = false;
 
-  constructor(public driveService: DriveService) {}
+  // 2. Wstrzyknij public cdr: ChangeDetectorRef w konstruktorze
+  constructor(public driveService: DriveService, public cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.driveService.initTokenClient();
-    this.generateRosePetals();
   }
 
   onLogin() {
     this.driveService.requestToken();
   }
 
-  // Generowanie dynamicznych płatków róż w tle strony
-  generateRosePetals() {
-    const container = document.getElementById('particles-container');
-    if (!container) return;
-    
-    const petalCount = 20;
-    for (let i = 0; i < petalCount; i++) {
-      const petal = document.createElement('div');
-      petal.classList.add('petal');
-      
-      const size = Math.random() * 10 + 8;
-      petal.style.width = `${size}px`;
-      petal.style.height = `${size}px`;
-      petal.style.left = `${Math.random() * 100}vw`;
-      
-      const delay = Math.random() * 8;
-      petal.style.animationDelay = `${delay}s, ${delay}s`;
-      
-      const duration = Math.random() * 5 + 6;
-      petal.style.animationDuration = `${duration}s, ${Math.random() * 3 + 3}s`;
-
-      container.appendChild(petal);
-    }
-  }
-
-// Obsługa masowego wgrywania zdjęć z limitem współbieżności do 3 plików
   async onFilesSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (!input.files || input.files.length === 0) return;
@@ -70,6 +44,7 @@ export class UploadComponent implements OnInit {
         .then(() => {
           completedCount++;
           this.uploadProgressText = `Wysłano ${completedCount} z ${totalFiles} zdjęć...`;
+          this.cdr.detectChanges(); // Wymuszaj odświeżanie licznika zdjęć w trakcie
         })
         .catch((err) => {
           console.error(`Pominięto plik ${file.name} z powodu błędu.`, err);
@@ -87,15 +62,24 @@ export class UploadComponent implements OnInit {
 
     await Promise.all(runningPool);
 
-    // --- POPRAWKA: Najpierw przywracamy stan przycisku i czyścimy input ---
+    // Koniec wysyłania: Zmieniamy flagi
     this.isUploading = false;
     this.uploadProgressText = '';
     input.value = ''; 
 
-    // --- Na samym końcu pokazujemy powiadomienie (przycisk już zdąży się zmienić) ---
-    // Użycie setTimeout pozwala przeglądarce natychmiast przerysować widok (render) przed zablokowaniem przez alert
+    // 3. KLUCZOWA POPRAWKA: Wymuś natychmiastowe przerysowanie HTML!
+    this.cdr.detectChanges();
+
+    // Pokazujemy powiadomienie dopiero gdy przycisk w HTML wizualnie już się zmienił
     setTimeout(() => {
       alert(`Sukces! Wszystkie zdjęcia (${totalFiles}) zostały zapisane w naszej ślubnej galerii Google Drive. Dziękujemy!`);
     }, 50);
+  }
+
+  scrollToPlan() {
+    const element = document.getElementById('plan-dnia');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 }

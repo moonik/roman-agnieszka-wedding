@@ -1,8 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
-/* Import czcionek na poziomie globalnym */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap');
 
-/* Przywrócenie genialnego tła na całe okno */
 body {
     margin: 0;
     padding: 0;
@@ -12,9 +9,16 @@ body {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    background-attachment: fixed;
+    background-attachment: fixed; /* Idealne na PC */
     font-family: 'Montserrat', sans-serif;
     color: #3a3532;
     scroll-behavior: smooth;
     overflow-x: hidden;
+}
+
+/* Wyłączenie paraliżującego iPhone'a efektu fixed */
+@media (max-width: 1024px) {
+    body {
+        background-attachment: scroll; /* Zapobiega rozciąganiu zdjęcia na iOS */
+    }
 }
