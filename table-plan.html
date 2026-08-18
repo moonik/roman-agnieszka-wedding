@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interaktywny Plan Stołów Weselnych</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c5a059;
+    --gold-dark: #9e7d3b;
+    --gold-light: #f7f1e5;
+    --bg-main: #fcfbfa;
+    --card-bg: #ffffff;
+    --text-main: #2c2926;
+    --text-muted: #7d7771;
+    --border-color: #e8e2d8;
+    --seat-empty: #f8f6f0;
+    --seat-occupied: #e9f2eb;
+    --seat-occupied-border: #82b38f;
+    --seat-pm: #fff1f2;
+    --seat-pm-border: #f43f5e;
+    --table-wood: #eeddc5;
+    --table-wood-border: #d4ba96;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    padding: 20px;
+    min-height: 100vh;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--gold-dark);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  header p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  /* Control Panel / Toolbar */
+  .toolbar {
+    max-width: 1400px;
+    margin: 0 auto 25px auto;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 15px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  }
+
+  .stats-bar {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .stat-badge {
+    background: var(--gold-light);
+    border: 1px solid var(--gold);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gold-dark);
+  }
+
+  .actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  button {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  button.btn-primary {
+    background: var(--gold);
+    color: white;
+  }
+
+  button.btn-primary:hover {
+    background: var(--gold-dark);
+  }
+
+  button.btn-outline {
+    background: white;
+    color: var(--gold-dark);
+  }
+
+  button.btn-outline:hover {
+    background: var(--gold-light);
+  }
+
+  button.btn-danger {
+    background: #fff0f0;
+    border-color: #ffb3b3;
+    color: #cc3333;
+  }
+
+  button.btn-danger:hover {
+    background: #ffe0e0;
+  }
+
+  /* Search box */
+  .search-box {
+    position: relative;
+    min-width: 250px;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+  }
+
+  .search-box input:focus {
+    border-color: var(--gold);
+  }
+
+  /* Main Room Layout */
+  .hall-container {
+    max-width: 1550px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 2px dashed var(--border-color);
+    border-radius: 20px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+    overflow-x: auto;
+  }
+
+  .room-marker {
+    position: absolute;
+    background: var(--gold-light);
+    color: var(--gold-dark);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 5px 15px;
+    border-radius: 6px;
+    text-transform: uppercase;
+  }
+
+  .marker-bar { top: 25px; left: 30px; }
+  .marker-fountain { bottom: 25px; left: 30px; }
+  .marker-entrance { top: 25px; right: 30px; }
+  .marker-dancefloor { bottom: 25px; right: 30px; }
+
+  /* Room Grid layout: Left column = Stół 1, Right column = Stoły 2,3,4 */
+  .hall-layout {
+    display: flex;
+    gap: 45px;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    min-width: 1300px;
+  }
+
+  .col-presidential {
+    flex: 0 0 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-right: 2px dashed #f0ece3;
+    padding-right: 35px;
+  }
+
+  .col-guests {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    justify-content: space-between;
+  }
+
+  /* Table styles */
+  .table-wrapper {
+    background: #fdfdfd;
+    border: 1px solid #f0ede6;
+    border-radius: 14px;
+    padding: 16px 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+  }
+
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .table-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--gold-dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .table-badge {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: #f4f1ea;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+
+  /* Stół 1: Pionowy lub dedykowany stół prezydialny */
+  .presidential-table-card {
+    background: #fff8f8;
+    border: 1.5px solid #ffccd3;
+    border-radius: 16px;
+    padding: 20px 15px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .presidential-table-card .table-title {
+    justify-content: center;
+    color: #e11d48;
+    margin-bottom: 15px;
+  }
+
+  .presidential-table-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .pm-surface {
+    background: linear-gradient(135deg, #fbcfe8, #f43f5e);
+    color: white;
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 8px;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    margin: 8px 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  /* Stoły Gości (Długie: 2 rzędy po 18 krzeseł) */
+  .long-table-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .row-seats {
+    display: grid;
+    grid-template-columns: repeat(18, minmax(80px, 1fr));
+    gap: 6px;
+  }
+
+  .table-wooden-board {
+    height: 38px;
+    background: linear-gradient(to right, #eeddc5, #e4ceb0, #eeddc5);
+    border: 1px solid var(--table-wood-border);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #83674b;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: inset 0 2px 4px rgba(255,255,255,0.4), 0 2px 4px rgba(0,0,0,0.03);
+  }
+
+  /* Chair/Seat item */
+  .seat {
+    background: var(--seat-empty);
+    border: 1.5px dashed #d1c7b7;
+    border-radius: 6px;
+    padding: 6px 4px;
+    min-height: 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+
+  .seat:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    border-color: var(--gold);
+    background: #fff;
+  }
+
+  .seat.occupied {
+    background: var(--seat-occupied);
+    border: 1.5px solid var(--seat-occupied-border);
+  }
+
+  .seat.presidential {
+    border-color: #fca5a5;
+    background: #fff5f5;
+  }
+
+  .seat.presidential.occupied {
+    background: var(--seat-pm);
+    border: 1.5px solid var(--seat-pm-border);
+  }
+
+  .seat-num {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #a89f91;
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+
+  .seat.occupied .seat-num {
+    color: #558b63;
+  }
+
+  .seat.presidential.occupied .seat-num {
+    color: #e11d48;
+  }
+
+  .seat-name {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-main);
+    text-align: center;
+    line-height: 1.15;
+    word-break: break-word;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .seat:not(.occupied) .seat-name {
+    color: #b5ada2;
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  /* Highlight on search */
+  .seat.highlight {
+    animation: pulse 1s infinite alternate;
+    border-color: #e11d48 !important;
+    background: #ffe4e6 !important;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.08); box-shadow: 0 0 10px rgba(225,29,72,0.5); }
+  }
+
+  /* Modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-overlay.active {
+    display: flex;
+  }
+
+  .modal {
+    background: white;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 440px;
+    padding: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    border: 1px solid var(--border-color);
+  }
+
+  .modal h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: var(--gold-dark);
+    margin-bottom: 5px;
+  }
+
+  .modal p.subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-main);
+  }
+
+  .form-group input, .form-group textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+  }
+
+  .form-group input:focus, .form-group textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 2px var(--gold-light);
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+  }
+
+  /* Print view styling */
+  @media print {
+    body {
+      background: white;
+      padding: 0;
+      color: black;
+    }
+    .toolbar, .search-box, .btn-primary, .btn-outline, .btn-danger, .actions {
+      display: none !important;
+    }
+    .hall-container {
+      border: 1px solid #ccc;
+      box-shadow: none;
+      padding: 10px;
+      margin: 0;
+      width: 100%;
+    }
+    .table-wrapper {
+      box-shadow: none;
+      border: 1px solid #ddd;
+      page-break-inside: avoid;
+    }
+    .seat {
+      border: 1px solid #999 !important;
+      min-height: 56px;
+    }
+
+    /* Wydruk: zwiększ miejsce i pokaż całe imię i nazwisko (bez ellipsisu) */
+    .row-seats {
+      grid-template-columns: repeat(18, minmax(90px, 1fr));
+      gap: 6px;
+    }
+
+    .seat-name {
+      display: block !important;
+      -webkit-line-clamp: unset !important;
+      -webkit-box-orient: initial !important;
+      white-space: normal !important;
+      overflow: visible !important;
+      text-overflow: clip !important;
+      font-size: 0.85rem !important;
+      line-height: 1.1 !important;
+    }
+  }
+
+  /* Guest list drawer */
+  .guest-list-drawer {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 380px;
+    height: 100vh;
+    background: white;
+    box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+    z-index: 999;
+    padding: 25px;
+    overflow-y: auto;
+    flex-direction: column;
+  }
+
+  .guest-list-drawer.active {
+    display: flex;
+  }
+
+  .drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .drawer-list {
+    flex: 1;
+    overflow-y: auto;
+    list-style: none;
+  }
+
+  .drawer-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    border-bottom: 1px solid #f2ede4;
+    font-size: 0.85rem;
+  }
+
+  .drawer-item:hover {
+    background: var(--gold-light);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Plan Rozmieszczenia Stołów Weselnych</h1>
+  <p>Kliknij dowolne krzesło, aby wpisać lub zmienić gościa. Dane zapisują się automatycznie w przeglądarce.</p>
+</header>
+
+<div class="toolbar">
+  <div class="stats-bar">
+    <div class="stat-badge" id="stats-total">Liczba miejsc: 114</div>
+    <div class="stat-badge" id="stats-occupied" style="background:#e9f2eb; border-color:#82b38f; color:#2e6b3f;">Usadzeni: 0</div>
+    <div class="stat-badge" id="stats-free" style="background:#fff4e6; border-color:#ff9800; color:#d97706;">Wolne: 114</div>
+  </div>
+
+  <div class="search-box">
+    <input type="text" id="guestSearch" placeholder="🔍 Szukaj gościa po nazwisku..." oninput="searchGuest(this.value)">
+  </div>
+
+  <div class="actions">
+    <button class="btn-outline" onclick="toggleGuestList()">📋 Lista Gości</button>
+    <button class="btn-outline" onclick="exportData()">💾 Eksport (JSON)</button>
+    <button class="btn-outline" onclick="document.getElementById('importFile').click()">📥 Import</button>
+    <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(event)">
+    <button class="btn-primary" onclick="window.print()">🖨️ Drukuj / PDF</button>
+    <button class="btn-danger" onclick="clearAllSeats()">🧹 Wyczyść</button>
+  </div>
+</div>
+
+<div class="hall-container">
+  <div class="room-marker marker-bar">🍸 BAR / WEJŚCIE</div>
+  <div class="room-marker marker-fountain">⛲ FONTANNA</div>
+  <div class="room-marker marker-entrance">🚪 WEJŚCIE GŁÓWNE</div>
+  <div class="room-marker marker-dancefloor">💃 PARKIET TANECZNY</div>
+
+  <div class="hall-layout">
+    <!-- LEWA STRONA: STÓŁ 1 (6 OSÓB - PARA MŁODA I ŚWIADKOWIE) -->
+    <div class="col-presidential">
+      <div class="presidential-table-card">
+        <div class="table-title">
+          <span>👑 STÓŁ 1</span>
+          <span class="table-badge">6 os.</span>
+        </div>
+        <div style="font-size:0.75rem; color:#888; margin-bottom:12px; font-weight:500;">Para Młoda & Świadkowie</div>
+        
+        <div class="presidential-table-body" id="table-1-seats">
+          <!-- Renderowane w JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- PRAWA STRONA: STOŁY 2, 3, 4 (PO 36 OSÓB KAŻDY) -->
+    <div class="col-guests">
+      
+      <!-- STÓŁ 2 -->
+      <div class="table-wrapper">
+        <div class="table-header">
+          <div class="table-title">
+            <span>STÓŁ 2</span>
+            <span class="table-badge">36 osób (1-36)</span>
+          </div>
+          <span style="font-size:0.8rem; color:var(--text-muted)">Rząd A: 1-18 &nbsp;|&nbsp; Rząd B: 19-36</span>
+        </div>
+        <div class="long-table-container">
+          <div class="row-seats" id="table-2-row-top"></div>
+          <div class="table-wooden-board">STÓŁ NR 2</div>
+          <div class="row-seats" id="table-2-row-bottom"></div>
+        </div>
+      </div>
+
+      <!-- STÓŁ 3 -->
+      <div class="table-wrapper">
+        <div class="table-header">
+          <div class="table-title">
+            <span>STÓŁ 3</span>
+            <span class="table-badge">36 osób (1-36)</span>
+          </div>
+          <span style="font-size:0.8rem; color:var(--text-muted)">Rząd A: 1-18 &nbsp;|&nbsp; Rząd B: 19-36</span>
+        </div>
+        <div class="long-table-container">
+          <div class="row-seats" id="table-3-row-top"></div>
+          <div class="table-wooden-board">STÓŁ NR 3</div>
+          <div class="row-seats" id="table-3-row-bottom"></div>
+        </div>
+      </div>
+
+      <!-- STÓŁ 4 -->
+      <div class="table-wrapper">
+        <div class="table-header">
+          <div class="table-title">
+            <span>STÓŁ 4</span>
+            <span class="table-badge">36 osób (1-36)</span>
+          </div>
+          <span style="font-size:0.8rem; color:var(--text-muted)">Rząd A: 1-18 &nbsp;|&nbsp; Rząd B: 19-36</span>
+        </div>
+        <div class="long-table-container">
+          <div class="row-seats" id="table-4-row-top"></div>
+          <div class="table-wooden-board">STÓŁ NR 4</div>
+          <div class="row-seats" id="table-4-row-bottom"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal Edycji Miejsca -->
+<div class="modal-overlay" id="seatModal">
+  <div class="modal">
+    <h3 id="modalTitle">Edycja Miejsca</h3>
+    <p class="subtitle" id="modalSubtitle">Stół X, Miejsce Y</p>
+    
+    <div class="form-group">
+      <label for="guestNameInput">Imię i Nazwisko Gościa:</label>
+      <input type="text" id="guestNameInput" placeholder="np. Anna Kowalska" autofocus>
+    </div>
+
+    <div class="form-group">
+      <label for="guestNoteInput">Dodatkowa informacja / Menu (opcjonalnie):</label>
+      <input type="text" id="guestNoteInput" placeholder="np. Dieta wege, Dziecko, Świadek">
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-danger" type="button" onclick="clearCurrentSeat()">Usuń z miejsca</button>
+      <button class="btn-outline" type="button" onclick="closeModal()">Anuluj</button>
+      <button class="btn-primary" type="button" onclick="saveCurrentSeat()">Zapisz</button>
+    </div>
+  </div>
+</div>
+
+<!-- Drawer Listy Gości -->
+<div class="guest-list-drawer" id="guestDrawer">
+  <div class="drawer-header">
+    <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--gold-dark);">Lista Wszystkich Gości</h3>
+    <button class="btn-outline" onclick="toggleGuestList()">✕ Zamknij</button>
+  </div>
+  <ul class="drawer-list" id="drawerList"></ul>
+</div>
+
+<script>
+  // Domyślna struktura danych dla miejsc
+  const DEFAULT_DATA = {
+    // Stół 1 (6 osób)
+    "t1_s1": { name: "Świadek (Kobieta)", note: "Świadek", table: 1, seat: 1 },
+    "t1_s2": { name: "Panna Młoda", note: "Para Młoda", table: 1, seat: 2 },
+    "t1_s3": { name: "Pan Młody", note: "Para Młoda", table: 1, seat: 3 },
+    "t1_s4": { name: "Świadek (Mężczyzna)", note: "Świadek", table: 1, seat: 4 },
+    "t1_s5": { name: "", note: "", table: 1, seat: 5 },
+    "t1_s6": { name: "", note: "", table: 1, seat: 6 }
+  };
+
+  // Inicjalizacja pustych miejsc dla stołów 2, 3, 4 (po 36 miejsc)
+  [2, 3, 4].forEach(t => {
+    for (let s = 1; s <= 36; s++) {
+      DEFAULT_DATA[`t${t}_s${s}`] = { name: "", note: "", table: t, seat: s };
+    }
+  });
+
+  let seatingData = JSON.parse(localStorage.getItem('wedding_seating_plan')) || DEFAULT_DATA;
+  let activeSeatId = null;
+
+  function saveToStorage() {
+    localStorage.setItem('wedding_seating_plan', JSON.stringify(seatingData));
+    updateStats();
+  }
+
+  function updateStats() {
+    let total = 6 + 36 * 3;
+    let occupied = 0;
+    for (const key in seatingData) {
+      if (seatingData[key] && seatingData[key].name.trim() !== "") {
+        occupied++;
+      }
+    }
+    document.getElementById('stats-total').innerText = `Liczba miejsc: ${total}`;
+    document.getElementById('stats-occupied').innerText = `Usadzeni: ${occupied}`;
+    document.getElementById('stats-free').innerText = `Wolne: ${total - occupied}`;
+  }
+
+  function renderTables() {
+    // Render Stół 1 (Prezydialny)
+    const t1Container = document.getElementById('table-1-seats');
+    t1Container.innerHTML = '';
+    
+    // Specjalny układ dla stołu prezydialnego
+    const labels = ["Świadek 1", "Panna Młoda", "Pan Młody", "Świadek 2", "Gość 5", "Gość 6"];
+    for (let s = 1; s <= 6; s++) {
+      const seatId = `t1_s${s}`;
+      const seat = seatingData[seatId] || { name: "", note: "" };
+      const isOccupied = seat.name.trim() !== "";
+      
+      const el = document.createElement('div');
+      el.className = `seat presidential ${isOccupied ? 'occupied' : ''}`;
+      el.id = `seat-elem-${seatId}`;
+      el.onclick = () => openModal(seatId, 1, s, labels[s-1]);
+      el.innerHTML = `
+        <div class="seat-num">${s}. ${labels[s-1]}</div>
+        <div class="seat-name">${seat.name || '+ Dodaj osobę'}</div>
+      `;
+      t1Container.appendChild(el);
+    }
+
+    // Render Stoły 2, 3, 4
+    [2, 3, 4].forEach(t => {
+      const topRow = document.getElementById(`table-${t}-row-top`);
+      const bottomRow = document.getElementById(`table-${t}-row-bottom`);
+      topRow.innerHTML = '';
+      bottomRow.innerHTML = '';
+
+      // Rząd górny: miejsca 1-18
+      for (let s = 1; s <= 18; s++) {
+        const seatId = `t${t}_s${s}`;
+        const seat = seatingData[seatId] || { name: "", note: "" };
+        const isOccupied = seat.name.trim() !== "";
+
+        const el = document.createElement('div');
+        el.className = `seat ${isOccupied ? 'occupied' : ''}`;
+        el.id = `seat-elem-${seatId}`;
+        el.onclick = () => openModal(seatId, t, s);
+        el.innerHTML = `
+          <div class="seat-num">${s}</div>
+          <div class="seat-name" title="${seat.name || ''}">${seat.name || 'Puste'}</div>
+        `;
+        topRow.appendChild(el);
+      }
+
+      // Rząd dolny: miejsca 19-36
+      for (let s = 19; s <= 36; s++) {
+        const seatId = `t${t}_s${s}`;
+        const seat = seatingData[seatId] || { name: "", note: "" };
+        const isOccupied = seat.name.trim() !== "";
+
+        const el = document.createElement('div');
+        el.className = `seat ${isOccupied ? 'occupied' : ''}`;
+        el.id = `seat-elem-${seatId}`;
+        el.onclick = () => openModal(seatId, t, s);
+        el.innerHTML = `
+          <div class="seat-num">${s}</div>
+          <div class="seat-name" title="${seat.name || ''}">${seat.name || 'Puste'}</div>
+        `;
+        bottomRow.appendChild(el);
+      }
+    });
+
+    updateStats();
+  }
+
+  function openModal(seatId, tableNum, seatNum, defaultRole = "") {
+    activeSeatId = seatId;
+    const seat = seatingData[seatId] || { name: "", note: "" };
+    
+    document.getElementById('modalTitle').innerText = tableNum === 1 ? `Stół Pary Młodej (Stół 1)` : `Stół ${tableNum}`;
+    document.getElementById('modalSubtitle').innerText = `Miejsce numer ${seatNum} ${defaultRole ? '(' + defaultRole + ')' : ''}`;
+    
+    const nameInput = document.getElementById('guestNameInput');
+    const noteInput = document.getElementById('guestNoteInput');
+    
+    nameInput.value = seat.name || "";
+    noteInput.value = seat.note || "";
+    
+    document.getElementById('seatModal').classList.add('active');
+    setTimeout(() => nameInput.focus(), 50);
+  }
+
+  function closeModal() {
+    document.getElementById('seatModal').classList.remove('active');
+    activeSeatId = null;
+  }
+
+  function saveCurrentSeat() {
+    if (!activeSeatId) return;
+    const name = document.getElementById('guestNameInput').value.trim();
+    const note = document.getElementById('guestNoteInput').value.trim();
+    
+    const parts = activeSeatId.replace('t','').split('_s');
+    const table = parseInt(parts[0]);
+    const seat = parseInt(parts[1]);
+
+    seatingData[activeSeatId] = { name, note, table, seat };
+    saveToStorage();
+    renderTables();
+    closeModal();
+  }
+
+  function clearCurrentSeat() {
+    if (!activeSeatId) return;
+    const parts = activeSeatId.replace('t','').split('_s');
+    seatingData[activeSeatId] = { name: "", note: "", table: parseInt(parts[0]), seat: parseInt(parts[1]) };
+    saveToStorage();
+    renderTables();
+    closeModal();
+  }
+
+  function clearAllSeats() {
+    if (confirm("Czy na pewno chcesz wyczyścić wszystkie miejsca i gości?")) {
+      for (const key in seatingData) {
+        seatingData[key].name = "";
+        seatingData[key].note = "";
+      }
+      saveToStorage();
+      renderTables();
+    }
+  }
+
+  // Wyszukiwarka gości
+  function searchGuest(query) {
+    query = query.toLowerCase().trim();
+    document.querySelectorAll('.seat').forEach(el => el.classList.remove('highlight'));
+    
+    if (!query) return;
+
+    for (const key in seatingData) {
+      const g = seatingData[key];
+      if (g && g.name.toLowerCase().includes(query)) {
+        const el = document.getElementById(`seat-elem-${key}`);
+        if (el) el.classList.add('highlight');
+      }
+    }
+  }
+
+  // Eksport i import
+  function exportData() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(seatingData, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", `plan_stolow_wesele_${new Date().toISOString().slice(0,10)}.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  }
+
+  function importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const imported = JSON.parse(e.target.result);
+        seatingData = imported;
+        saveToStorage();
+        renderTables();
+        alert("Pomyślnie zaimportowano listę gości!");
+      } catch (err) {
+        alert("Błąd podczas importu pliku JSON.");
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  // Drawer z listą
+  function toggleGuestList() {
+    const drawer = document.getElementById('guestDrawer');
+    drawer.classList.toggle('active');
+    if (drawer.classList.contains('active')) {
+      const listEl = document.getElementById('drawerList');
+      listEl.innerHTML = '';
+      const list = [];
+      for (const key in seatingData) {
+        const g = seatingData[key];
+        if (g && g.name.trim()) {
+          list.push(g);
+        }
+      }
+      list.sort((a,b) => a.name.localeCompare(b.name, 'pl'));
+      
+      if (list.length === 0) {
+        listEl.innerHTML = '<li style="color:#888; font-size:0.9rem; padding:10px;">Brak przypisanych gości.</li>';
+        return;
+      }
+
+      list.forEach(item => {
+        const li = document.createElement('li');
+        li.className = 'drawer-item';
+        li.innerHTML = `
+          <div>
+            <strong>${item.name}</strong>
+            <div style="font-size:0.75rem; color:#777;">${item.note ? item.note + ' • ' : ''}Stół ${item.table}, Miejsce ${item.seat}</div>
+          </div>
+          <button class="btn-outline" style="padding:2px 8px; font-size:0.75rem;" onclick="findAndHighlight('${item.table}', '${item.seat}')">Pokaż</button>
+        `;
+        listEl.appendChild(li);
+      });
+    }
+  }
+
+  function findAndHighlight(t, s) {
+    toggleGuestList();
+    const elem = document.getElementById(`seat-elem-t${t}_s${s}`);
+    if (elem) {
+      elem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      elem.classList.add('highlight');
+      setTimeout(() => elem.classList.remove('highlight'), 3000);
+    }
+  }
+
+  // Enter to save in modal
+  document.getElementById('guestNameInput').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') saveCurrentSeat();
+  });
+
+  // Start
+  renderTables();
+</script>
+</body>
+</html>

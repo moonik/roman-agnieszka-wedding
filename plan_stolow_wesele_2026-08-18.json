@@ -1,0 +1,686 @@
+{
+  "t1_s1": {
+    "name": "Justyna Karpiuk",
+    "note": "Świadek",
+    "table": 1,
+    "seat": 1
+  },
+  "t1_s2": {
+    "name": "Agnieszka Mysan",
+    "note": "Para Młoda",
+    "table": 1,
+    "seat": 2
+  },
+  "t1_s3": {
+    "name": "Roman Mysan",
+    "note": "Para Młoda",
+    "table": 1,
+    "seat": 3
+  },
+  "t1_s4": {
+    "name": "Maksym Osmuk",
+    "note": "Świadek",
+    "table": 1,
+    "seat": 4
+  },
+  "t1_s5": {
+    "name": "Alina Shybut",
+    "note": "Osoba Towarzysząca Maksyma",
+    "table": 1,
+    "seat": 5
+  },
+  "t1_s6": {
+    "name": "",
+    "note": "",
+    "table": 1,
+    "seat": 6
+  },
+  "t2_s1": {
+    "name": "Petro Łysenko",
+    "note": "",
+    "table": 2,
+    "seat": 1
+  },
+  "t2_s2": {
+    "name": "Roman Baida",
+    "note": "",
+    "table": 2,
+    "seat": 2
+  },
+  "t2_s3": {
+    "name": "Yuliia Latysheva",
+    "note": "",
+    "table": 2,
+    "seat": 3
+  },
+  "t2_s4": {
+    "name": "Liudmyla Tkach",
+    "note": "",
+    "table": 2,
+    "seat": 4
+  },
+  "t2_s5": {
+    "name": "Mykhailo Vasylechko",
+    "note": "",
+    "table": 2,
+    "seat": 5
+  },
+  "t2_s6": {
+    "name": "Natalia Shoturma",
+    "note": "",
+    "table": 2,
+    "seat": 6
+  },
+  "t2_s7": {
+    "name": "Iryna Filipchuk",
+    "note": "",
+    "table": 2,
+    "seat": 7
+  },
+  "t2_s8": {
+    "name": "Igor Filipchuk",
+    "note": "",
+    "table": 2,
+    "seat": 8
+  },
+  "t2_s9": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 9
+  },
+  "t2_s10": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 10
+  },
+  "t2_s11": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 11
+  },
+  "t2_s12": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 12
+  },
+  "t2_s13": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 13
+  },
+  "t2_s14": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 14
+  },
+  "t2_s15": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 15
+  },
+  "t2_s16": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 16
+  },
+  "t2_s17": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 17
+  },
+  "t2_s18": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 18
+  },
+  "t2_s19": {
+    "name": "Oleg Bida",
+    "note": "",
+    "table": 2,
+    "seat": 19
+  },
+  "t2_s20": {
+    "name": "Oleksandra Cholewa",
+    "note": "",
+    "table": 2,
+    "seat": 20
+  },
+  "t2_s21": {
+    "name": "Łukasz Cholewa",
+    "note": "",
+    "table": 2,
+    "seat": 21
+  },
+  "t2_s22": {
+    "name": "Tetiana Tymiv",
+    "note": "",
+    "table": 2,
+    "seat": 22
+  },
+  "t2_s23": {
+    "name": "Anatolii Mysan",
+    "note": "",
+    "table": 2,
+    "seat": 23
+  },
+  "t2_s24": {
+    "name": "Mariia Skryhunets",
+    "note": "",
+    "table": 2,
+    "seat": 24
+  },
+  "t2_s25": {
+    "name": "Petro Skryhunets",
+    "note": "",
+    "table": 2,
+    "seat": 25
+  },
+  "t2_s26": {
+    "name": "Sofiia Kharuk",
+    "note": "",
+    "table": 2,
+    "seat": 26
+  },
+  "t2_s27": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 27
+  },
+  "t2_s28": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 28
+  },
+  "t2_s29": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 29
+  },
+  "t2_s30": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 30
+  },
+  "t2_s31": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 31
+  },
+  "t2_s32": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 32
+  },
+  "t2_s33": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 33
+  },
+  "t2_s34": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 34
+  },
+  "t2_s35": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 35
+  },
+  "t2_s36": {
+    "name": "",
+    "note": "",
+    "table": 2,
+    "seat": 36
+  },
+  "t3_s1": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 1
+  },
+  "t3_s2": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 2
+  },
+  "t3_s3": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 3
+  },
+  "t3_s4": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 4
+  },
+  "t3_s5": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 5
+  },
+  "t3_s6": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 6
+  },
+  "t3_s7": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 7
+  },
+  "t3_s8": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 8
+  },
+  "t3_s9": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 9
+  },
+  "t3_s10": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 10
+  },
+  "t3_s11": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 11
+  },
+  "t3_s12": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 12
+  },
+  "t3_s13": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 13
+  },
+  "t3_s14": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 14
+  },
+  "t3_s15": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 15
+  },
+  "t3_s16": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 16
+  },
+  "t3_s17": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 17
+  },
+  "t3_s18": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 18
+  },
+  "t3_s19": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 19
+  },
+  "t3_s20": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 20
+  },
+  "t3_s21": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 21
+  },
+  "t3_s22": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 22
+  },
+  "t3_s23": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 23
+  },
+  "t3_s24": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 24
+  },
+  "t3_s25": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 25
+  },
+  "t3_s26": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 26
+  },
+  "t3_s27": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 27
+  },
+  "t3_s28": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 28
+  },
+  "t3_s29": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 29
+  },
+  "t3_s30": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 30
+  },
+  "t3_s31": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 31
+  },
+  "t3_s32": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 32
+  },
+  "t3_s33": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 33
+  },
+  "t3_s34": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 34
+  },
+  "t3_s35": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 35
+  },
+  "t3_s36": {
+    "name": "",
+    "note": "",
+    "table": 3,
+    "seat": 36
+  },
+  "t4_s1": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 1
+  },
+  "t4_s2": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 2
+  },
+  "t4_s3": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 3
+  },
+  "t4_s4": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 4
+  },
+  "t4_s5": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 5
+  },
+  "t4_s6": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 6
+  },
+  "t4_s7": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 7
+  },
+  "t4_s8": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 8
+  },
+  "t4_s9": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 9
+  },
+  "t4_s10": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 10
+  },
+  "t4_s11": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 11
+  },
+  "t4_s12": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 12
+  },
+  "t4_s13": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 13
+  },
+  "t4_s14": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 14
+  },
+  "t4_s15": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 15
+  },
+  "t4_s16": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 16
+  },
+  "t4_s17": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 17
+  },
+  "t4_s18": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 18
+  },
+  "t4_s19": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 19
+  },
+  "t4_s20": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 20
+  },
+  "t4_s21": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 21
+  },
+  "t4_s22": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 22
+  },
+  "t4_s23": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 23
+  },
+  "t4_s24": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 24
+  },
+  "t4_s25": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 25
+  },
+  "t4_s26": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 26
+  },
+  "t4_s27": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 27
+  },
+  "t4_s28": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 28
+  },
+  "t4_s29": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 29
+  },
+  "t4_s30": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 30
+  },
+  "t4_s31": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 31
+  },
+  "t4_s32": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 32
+  },
+  "t4_s33": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 33
+  },
+  "t4_s34": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 34
+  },
+  "t4_s35": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 35
+  },
+  "t4_s36": {
+    "name": "",
+    "note": "",
+    "table": 4,
+    "seat": 36
+  }
+}
