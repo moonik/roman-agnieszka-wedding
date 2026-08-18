@@ -36,8 +36,10 @@
     font-family: 'Montserrat', sans-serif;
     background-color: var(--bg-main);
     color: var(--text-main);
-    padding: 20px;
+    padding: 10px;
     min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
   }
 
   header {
@@ -47,7 +49,7 @@
 
   header h1 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2.6rem;
+    font-size: 2rem;
     font-weight: 700;
     color: var(--gold-dark);
     letter-spacing: 1px;
@@ -61,12 +63,12 @@
 
   /* Control Panel / Toolbar */
   .toolbar {
-    max-width: 1400px;
-    margin: 0 auto 25px auto;
+    max-width: 100%;
+    margin: 0 auto 12px auto;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 15px 20px;
+    border-radius: 10px;
+    padding: 10px 12px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -142,7 +144,7 @@
   /* Search box */
   .search-box {
     position: relative;
-    min-width: 250px;
+    min-width: 180px;
   }
 
   .search-box input {
@@ -161,15 +163,19 @@
 
   /* Main Room Layout */
   .hall-container {
-    max-width: 1550px;
+    width: 100%;
     margin: 0 auto;
     background: #ffffff;
     border: 2px dashed var(--border-color);
-    border-radius: 20px;
-    padding: 30px;
+    border-radius: 14px;
+    padding: 12px;
     position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-    overflow-x: auto;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+    height: calc(100vh - 140px);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .room-marker {
@@ -192,27 +198,28 @@
   /* Room Grid layout: Left column = Stół 1, Right column = Stoły 2,3,4 */
   .hall-layout {
     display: flex;
-    gap: 45px;
-    margin-top: 35px;
-    margin-bottom: 35px;
-    min-width: 1300px;
+    gap: 18px;
+    margin-top: 18px;
+    margin-bottom: 18px;
+    flex-wrap: nowrap;
+    align-items: flex-start;
   }
 
   .col-presidential {
-    flex: 0 0 280px;
+    flex: 0 0 220px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-right: 2px dashed #f0ece3;
-    padding-right: 35px;
+    padding-right: 18px;
   }
 
   .col-guests {
-    flex: 1;
+    flex: 1 1 auto;
     display: flex;
     flex-direction: column;
-    gap: 35px;
+    gap: 20px;
     justify-content: space-between;
   }
 
@@ -220,9 +227,9 @@
   .table-wrapper {
     background: #fdfdfd;
     border: 1px solid #f0ede6;
-    border-radius: 14px;
-    padding: 16px 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    border-radius: 10px;
+    padding: 10px 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
   }
 
   .table-header {
@@ -234,7 +241,7 @@
 
   .table-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.35rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--gold-dark);
     display: flex;
@@ -244,7 +251,7 @@
 
   .table-badge {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.72rem;
+    font-size: 0.65rem;
     font-weight: 600;
     color: var(--text-muted);
     background: #f4f1ea;
@@ -256,8 +263,8 @@
   .presidential-table-card {
     background: #fff8f8;
     border: 1.5px solid #ffccd3;
-    border-radius: 16px;
-    padding: 20px 15px;
+    border-radius: 12px;
+    padding: 12px 10px;
     width: 100%;
     text-align: center;
   }
@@ -295,12 +302,12 @@
 
   .row-seats {
     display: grid;
-    grid-template-columns: repeat(18, minmax(80px, 1fr));
-    gap: 6px;
+    grid-template-columns: repeat(18, minmax(48px, 1fr));
+    gap: 4px;
   }
 
   .table-wooden-board {
-    height: 38px;
+    height: 28px;
     background: linear-gradient(to right, #eeddc5, #e4ceb0, #eeddc5);
     border: 1px solid var(--table-wood-border);
     border-radius: 6px;
@@ -308,7 +315,7 @@
     align-items: center;
     justify-content: center;
     color: #83674b;
-    font-size: 0.78rem;
+    font-size: 0.7rem;
     font-weight: 600;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -320,8 +327,8 @@
     background: var(--seat-empty);
     border: 1.5px dashed #d1c7b7;
     border-radius: 6px;
-    padding: 6px 4px;
-    min-height: 56px;
+    padding: 4px 3px;
+    min-height: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -354,7 +361,7 @@
   }
 
   .seat-num {
-    font-size: 0.65rem;
+    font-size: 0.55rem;
     font-weight: 700;
     color: #a89f91;
     line-height: 1;
@@ -370,7 +377,7 @@
   }
 
   .seat-name {
-    font-size: 0.72rem;
+    font-size: clamp(0.55rem, 1.2vh, 0.72rem);
     font-weight: 600;
     color: var(--text-main);
     text-align: center;
